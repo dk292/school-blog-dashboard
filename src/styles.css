@@ -4,7 +4,7 @@
 
 :root {
     --primary-color: #026467;
-    --secondary-color: #ebebcc;
+    --secondary-color: #e9f7de;
     --body-text-color: #596392;
     --navbar-footer-color: #f8f7f7;
 }
@@ -50,12 +50,12 @@ input[type= text], input[type = email] {
     height: 60px;
     padding-left: 20px;
     font-size: 13px;
-    width: 100%;
+    width: 100% !important;
 }
 
 .btn-theme {
     height: 58px;
     border: none;
     font-size: 13px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
 }
