@@ -1,6 +1,15 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 
 <div class="app-body">
     <app-dashboard></app-dashboard>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> -->
+<form #f="ngForm" (ngSubmit)="addData(f)">
+    <input type="text" name="name" ngModel>
+    <br>
+    <input type="email" name="email" ngModel>
+    <br>
+    <input type="password" name="password" ngModel>
+    <br>
+    <button type="submit">ADD DATA</button>
+</form>
