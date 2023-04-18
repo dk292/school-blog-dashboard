@@ -26,16 +26,21 @@ export class CategoriesComponent {
     const collectionInstance = collection(this.fireStore, 'categories')
     addDoc(collectionInstance, categoryData).then((ref) => {
       console.log("First Data added successfully")
+      
       const subCollection = collection(this.fireStore, `categories/${ref.id}/subcategories`)
+
       addDoc(subCollection, subCategoryData).then(subRef=>{
         console.log("Sub Data added successfully")
-        const secondCollection = collection(this.fireStore, `categories/${ref.id}/subcategories/${subRef.id}/third collection`)
-        addDoc(secondCollection, secondSubCategoryData).then(tRef => {
+
+        const subSecondCollection = collection(this.fireStore, `categories/${ref.id}/subcategories/${subRef.id}/third collection`)
+
+        addDoc(subSecondCollection, secondSubCategoryData).then(tRef => {
           console.log("Third Data added successfully");
         }).catch(err => console.log(err))
+
       }).catch(err => console.log(err))
+
     }).catch(err => console.log(err))
     
-      // this.db.collection('categories').doc('')
   }
 }
