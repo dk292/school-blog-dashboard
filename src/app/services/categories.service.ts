@@ -12,7 +12,6 @@ export class CategoriesService {
     const collectionInstance = collection(this.fireStore, 'categories')
     addDoc(collectionInstance, data).then((ref) => {
       console.log("First Data added successfully")
-
     }).catch(err => console.log(err))
   }
 }
