@@ -13,6 +13,7 @@ export class CategoriesComponent implements OnInit {
   userData?: Observable<any>
   formCategory?: string
   formStatus: string = 'Add'
+  categoryId!: string
 
   constructor(private categoryService: CategoriesService){}
 
@@ -26,8 +27,16 @@ export class CategoriesComponent implements OnInit {
       category: formData.value.category
     }
 
-    this.categoryService.saveData(categoryData)
-    formData.reset()
+    if(this.formStatus == 'Add'){
+      this.categoryService.saveData(categoryData)
+      formData.reset()
+    }else if(this.formStatus == 'Edit') {
+      this.categoryService.updateData(this.categoryId, categoryData)
+      formData.reset()
+      this.formStatus = 'Add'
+    }
+
+
 
     // const collectionInstance = collection(this.fireStore, 'categories')
     // addDoc(collectionInstance, categoryData).then((ref) => {
@@ -50,9 +59,10 @@ export class CategoriesComponent implements OnInit {
     
   }
 
-  onEdit(category: any)
+  onEdit(category: any, id: string)
   {
     this.formCategory =  category
     this.formStatus = 'Edit'
+    this.categoryId = id
   }
 }
