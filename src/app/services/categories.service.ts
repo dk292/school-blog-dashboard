@@ -23,6 +23,7 @@ export class CategoriesService {
   loadData(): Observable<any> {
 
     const collectionInstance = collection(this.fireStore, 'categories')
+    
     collectionData(collectionInstance, {idField: 'id'}).subscribe(val => console.log(val))
 
     return  collectionData(collectionInstance, {idField: 'id'})
@@ -30,11 +31,13 @@ export class CategoriesService {
 
   updateData(id: string, editData: any){
     const docInstance = doc(this.fireStore, 'categories', id)
+
     updateDoc(docInstance, editData).then(() => this.toastr.success("Data Updated Successfully...!")).catch(err => console.log(err))
   }
 
   deleteData(id: string){
     const docInstance = doc(this.fireStore, 'categories', id)
+
     deleteDoc(docInstance)
     .then(() => this.toastr.success("Data Deleted...!"))
     .catch((err) => console.log(err))
