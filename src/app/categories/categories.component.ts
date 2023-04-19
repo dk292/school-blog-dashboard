@@ -25,6 +25,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     this.categoryService.saveData(categoryData)
+    formData.reset()
 
     // const collectionInstance = collection(this.fireStore, 'categories')
     // addDoc(collectionInstance, categoryData).then((ref) => {
