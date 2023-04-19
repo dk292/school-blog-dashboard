@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Firestore, collection, addDoc, doc } from '@angular/fire/firestore';
+import { CategoriesService } from '../services/categories.service';
 
 @Component({
   selector: 'app-categories',
@@ -8,7 +8,7 @@ import { Firestore, collection, addDoc, doc } from '@angular/fire/firestore';
 })
 export class CategoriesComponent {
 
-  constructor(private fireStore: Firestore, ){}
+  constructor(private categoryService: CategoriesService){}
 
   onSubmit(formData: any){
 
@@ -16,31 +16,26 @@ export class CategoriesComponent {
       category: formData.value.category
     }
 
-    let subCategoryData = {
-      subCategory: 'subCategory1'
-    }
-    let secondSubCategoryData = {
-      subCategory: 'This is the subCategory Two'
-    }
+    this.categoryService.saveData(categoryData)
 
-    const collectionInstance = collection(this.fireStore, 'categories')
-    addDoc(collectionInstance, categoryData).then((ref) => {
-      console.log("First Data added successfully")
+    // const collectionInstance = collection(this.fireStore, 'categories')
+    // addDoc(collectionInstance, categoryData).then((ref) => {
+    //   console.log("First Data added successfully")
       
-      const subCollection = collection(this.fireStore, `categories/${ref.id}/subcategories`)
+    //   const subCollection = collection(this.fireStore, `categories/${ref.id}/subcategories`)
 
-      addDoc(subCollection, subCategoryData).then(subRef=>{
-        console.log("Sub Data added successfully")
+    //   addDoc(subCollection, subCategoryData).then(subRef=>{
+    //     console.log("Sub Data added successfully")
 
-        const subSecondCollection = collection(this.fireStore, `categories/${ref.id}/subcategories/${subRef.id}/third collection`)
+    //     const subSecondCollection = collection(this.fireStore, `categories/${ref.id}/subcategories/${subRef.id}/third collection`)
 
-        addDoc(subSecondCollection, secondSubCategoryData).then(tRef => {
-          console.log("Third Data added successfully");
-        }).catch(err => console.log(err))
+    //     addDoc(subSecondCollection, secondSubCategoryData).then(tRef => {
+    //       console.log("Third Data added successfully");
+    //     }).catch(err => console.log(err))
 
-      }).catch(err => console.log(err))
+    //   }).catch(err => console.log(err))
 
-    }).catch(err => console.log(err))
+    // }).catch(err => console.log(err))
     
   }
 }
