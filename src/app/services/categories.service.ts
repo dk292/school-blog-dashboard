@@ -8,7 +8,6 @@ import { Observable } from 'rxjs'
 })
 export class CategoriesService {
 
-  userData?: Observable<any>
 
   constructor(private fireStore: Firestore, private toastr: ToastrService) { }
 
@@ -21,11 +20,11 @@ export class CategoriesService {
     }).catch(err => console.log(err))
   }
 
-  loadData() {
+  loadData(): Observable<any> {
 
     const collectionInstance = collection(this.fireStore, 'categories')
     collectionData(collectionInstance, {idField: 'id'}).subscribe(val => console.log(val))
 
-    this.userData = collectionData(collectionInstance, {idField: 'id'})
+    return  collectionData(collectionInstance, {idField: 'id'})
   }
 }

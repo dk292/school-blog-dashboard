@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../services/categories.service';
 import { Category } from '../models/category';
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-categories',
@@ -9,10 +10,12 @@ import { Category } from '../models/category';
 })
 export class CategoriesComponent implements OnInit {
 
+  userData?: Observable<any>
+
   constructor(private categoryService: CategoriesService){}
 
   ngOnInit(): void {
-      this.categoryService.loadData()
+    this.userData =  this.categoryService.loadData()
   }
 
   onSubmit(formData: any){
