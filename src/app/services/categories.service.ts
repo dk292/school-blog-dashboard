@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection ,addDoc, collectionData, updateDoc, doc } from '@angular/fire/firestore';
+import { Firestore, collection ,addDoc, collectionData, updateDoc, doc, deleteDoc } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs'
 
@@ -30,6 +30,13 @@ export class CategoriesService {
 
   updateData(id: string, editData: any){
     const docInstance = doc(this.fireStore, 'categories', id)
-    updateDoc(docInstance, editData).then(() => this.toastr.success("Data Updated Successfully")).catch(err => console.log(err))
+    updateDoc(docInstance, editData).then(() => this.toastr.success("Data Updated Successfully...!")).catch(err => console.log(err))
+  }
+
+  deleteData(id: string){
+    const docInstance = doc(this.fireStore, 'categories', id)
+    deleteDoc(docInstance)
+    .then(() => this.toastr.success("Data Deleted...!"))
+    .catch((err) => console.log(err))
   }
 }
