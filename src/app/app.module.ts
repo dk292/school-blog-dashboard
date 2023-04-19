@@ -13,6 +13,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     FormsModule,
     ToastrModule,
     ToastrModule.forRoot(),
+    BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],
