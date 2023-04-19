@@ -11,6 +11,7 @@ import { Observable } from 'rxjs'
 export class CategoriesComponent implements OnInit {
 
   userData?: Observable<any>
+  formCategory?: string
 
   constructor(private categoryService: CategoriesService){}
 
@@ -46,5 +47,11 @@ export class CategoriesComponent implements OnInit {
 
     // }).catch(err => console.log(err))
     
+  }
+
+  onEdit(category: any)
+  {
+    this.formCategory =  category
+    console.log(category);
   }
 }

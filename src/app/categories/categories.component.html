@@ -12,7 +12,7 @@
                     class="form-control shadow-effect" 
                     placeholder="Add New Categories" 
                     #newCategory = 'ngModel'
-                    ngModel
+                    [(ngModel)] = "formCategory"
                     required
                     [ngClass]=" {'is-invalid': newCategory.touched && newCategory.invalid} "
                     >
@@ -45,7 +45,10 @@
                             <tr *ngFor="let data of userData | async; let i = index">
                                 <td> {{ i + 1 }} </td>
                                 <td> {{ data.category }} </td>
-                                <td>  </td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" (click)="onEdit(data.category)">Edit</button>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>
