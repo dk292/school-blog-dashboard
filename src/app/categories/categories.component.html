@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
-            <h3 class="text-center text-theme-primary">New Categories</h3>
-            <p class="text-center mb-5">You can add new categories from here...!</p>
+            <h3 class="text-center text-theme-primary">{{ formStatus }} Categories</h3>
+            <p class="text-center mb-5">You can add {{ formStatus }} categories from here...!</p>
 
             <form  class="form-inline text-center" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
                 <div class="form-group col-md-10">
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <button class="btn btn-block btn-info mb-2 btn-theme" type="submit" [disabled]="categoryForm.invalid">Add Categories</button>
+                    <button class="btn btn-block btn-info mb-2 btn-theme" type="submit" [disabled]="categoryForm.invalid">{{ formStatus }} Categories</button>
                 </div>
             </form>
         </div>

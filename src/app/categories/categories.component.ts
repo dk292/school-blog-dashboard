@@ -12,6 +12,7 @@ export class CategoriesComponent implements OnInit {
 
   userData?: Observable<any>
   formCategory?: string
+  formStatus: string = 'Add'
 
   constructor(private categoryService: CategoriesService){}
 
@@ -52,6 +53,6 @@ export class CategoriesComponent implements OnInit {
   onEdit(category: any)
   {
     this.formCategory =  category
-    console.log(category);
+    this.formStatus = 'Edit'
   }
 }
