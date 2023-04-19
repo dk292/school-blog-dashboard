@@ -6,7 +6,19 @@
 
             <form  class="form-inline text-center" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
                 <div class="form-group col-md-10">
-                    <input type="text" name="category" class="form-control shadow-effect" placeholder="Add New Categories" ngModel>
+                    <input 
+                    type="text" 
+                    name="category" 
+                    class="form-control shadow-effect" 
+                    placeholder="Add New Categories" 
+                    #newCategory = 'ngModel'
+                    ngModel
+                    required
+                    [ngClass]=" {'is-invalid': newCategory.touched && newCategory.invalid} "
+                    >
+                    <div class="alert alert-danger w-100" *ngIf=" newCategory.touched && newCategory.invalid ">
+                        Category Field is requried
+                    </div>
                 </div>
 
                 <div class="col-md-2">
