@@ -9,7 +9,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
 })
 export class NewPostComponent implements OnInit {
 
-  parmalink: string = ''
+  permalink: string = ''
   imgSrc: any = './assets/PlaceHolder.png'
   selectedImg?: any
   categories?: Array<any>
@@ -45,9 +45,10 @@ export class NewPostComponent implements OnInit {
   }
 
   onTitleChange($evt: any){
-
+    console.log($evt.target.value);
+    
     const title = $evt.target.value;
-    this.parmalink = title.replace(/\s/g, '-');
+    this.permalink = title.replace(/\s/g, '-');
 
   }
 
