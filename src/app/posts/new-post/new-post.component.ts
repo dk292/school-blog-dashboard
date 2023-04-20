@@ -8,12 +8,24 @@ import { Component } from '@angular/core';
 export class NewPostComponent {
 
   parmalink: string = ''
-  imgSrc: string = './assets/PlaceHolder.png'
+  imgSrc: any = './assets/PlaceHolder.png'
+  selectedImg?: any
 
   onTitleChange($evt: any){
 
     const title = $evt.target.value;
     this.parmalink = title.replace(/\s/g, '-');
-    
+
+  }
+
+  showPreview($evt: any){
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.imgSrc = e.target?.result
+    }
+
+    reader.readAsDataURL($evt.target.files[0])
+
+    this.selectedImg = $evt.target.files[0]
   }
 }
