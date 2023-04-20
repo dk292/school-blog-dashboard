@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class NewPostComponent {
 
   parmalink: string = ''
+  imgSrc: string = './assets/PlaceHolder.png'
 
   onTitleChange($evt: any){
 
