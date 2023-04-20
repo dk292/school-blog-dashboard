@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
@@ -46,12 +47,9 @@ export class NewPostComponent implements OnInit {
     return this.postForm.controls
   }
 
-  onTitleChange($evt: any){
-    console.log($evt.target.value);
-    
+  onTitleChange($evt: any){    
     const title = $evt.target.value;
     this.permalink = title.replace(/\s/g, '-');
-
   }
 
   showPreview($evt: any){
@@ -63,5 +61,24 @@ export class NewPostComponent implements OnInit {
     reader.readAsDataURL($evt.target.files[0])
 
     this.selectedImg = $evt.target.files[0]
+  }
+
+  onSubmit(){
+    console.log(this.postForm.value);
+    const postData: Post = {
+      title: this.postForm.value.title,
+      permalink: this.postForm.value.permalink,
+      category: {
+        categoryId: '',
+        category: ''
+      },
+      postImgPath: '',
+      excerpt: this.postForm.value.excerpt,
+      content: this.postForm.value.content,
+      isFeatured: false,
+      views: 0,
+      status: 'new',
+      createdAt: new Date()
+    }
   }
 }
