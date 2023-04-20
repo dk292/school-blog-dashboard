@@ -14,11 +14,11 @@
 
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" (keyup)="onTitleChange($event)">
                         </div>
                         <div class="form-group">
                             <label>Permalink</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" [(ngModel)]="parmalink" name="parmalink" disabled>
                         </div>
                         <div class="form-group">
                             <label>Excerpt</label>

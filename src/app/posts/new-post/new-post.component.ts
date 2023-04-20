@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class NewPostComponent {
 
+  parmalink: string = ''
+
+  onTitleChange($evt: any){
+
+    const title = $evt.target.value;
+    this.parmalink = title.replace(/\s/g, '-');
+    
+  }
 }
