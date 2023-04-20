@@ -23,8 +23,6 @@ export class CategoriesService {
   loadData(): Observable<any> {
 
     const collectionInstance = collection(this.fireStore, 'categories')
-    
-    collectionData(collectionInstance, {idField: 'id'}).subscribe(val => console.log(val))
 
     return  collectionData(collectionInstance, {idField: 'id'})
   }
