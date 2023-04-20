@@ -23,7 +23,7 @@ export class NewPostComponent implements OnInit {
         Validators.required,
         Validators.minLength(10)
       ]],
-      permalink: ['', Validators.required],
+      permalink: ['' , Validators.required],
       excerpt: ['', [
         Validators.required,
         Validators.minLength(50)
@@ -32,12 +32,14 @@ export class NewPostComponent implements OnInit {
       postImg: ['', Validators.required],
       content: ['', Validators.required]
     })
+
   }
 
   ngOnInit(): void {
       this.categoryService.loadData().subscribe(val => {
         this.categories = val
       })
+
   }
 
   get fc() {
