@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-new-post',
@@ -17,7 +18,7 @@ export class NewPostComponent implements OnInit {
 
   postForm: any
 
-  constructor(private categoryService: CategoriesService, private fb: FormBuilder){
+  constructor(private categoryService: CategoriesService, private fb: FormBuilder, private postService: PostsService){
 
     this.postForm = this.fb.group({
       title: ['', [
@@ -83,6 +84,6 @@ export class NewPostComponent implements OnInit {
       createdAt: new Date()
     }
     console.log(postData);
-    
+    this.postService.uploadFile(this.selectedImg, "folder_img")
   }
 }
