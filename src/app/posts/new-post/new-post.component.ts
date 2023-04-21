@@ -85,5 +85,7 @@ export class NewPostComponent implements OnInit {
     }
     console.log(postData);
     this.postService.uploadFile(this.selectedImg, "folder_img", postData)
+    this.postForm.reset()
+    this.imgSrc = './assets/PlaceHolder.png'
   }
 }
