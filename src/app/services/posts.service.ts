@@ -8,7 +8,7 @@ export class PostsService {
 
   constructor(private storage: Storage) { }
 
-  uploadFile(file: any, filePath: string){
+  uploadFile(file: any, filePath: string, postData: any){
     if (!file) return
 
     const storageRef = ref(this.storage, `${filePath}/${file.name}`)
@@ -22,6 +22,9 @@ export class PostsService {
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
+        postData.postImgPath = downloadURL;
+        console.log(postData);
+        
       })
     })
   }
