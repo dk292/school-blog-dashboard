@@ -1,14 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
 
-  constructor(private storage: Storage, private fireStore: Firestore, private toastr: ToastrService) { }
+  constructor(private storage: Storage, private fireStore: Firestore, private toastr: ToastrService,private router: Router) { }
 
   uploadFile(file: any, filePath: string, postData: any){
     if (!file) return
@@ -36,6 +38,14 @@ export class PostsService {
     const collectionInstance = collection(this.fireStore, 'posts')
     addDoc(collectionInstance, postData).then(()=> {
       this.toastr.success("Data Inserted Successfully...!")
+      this.router.navigate(['/posts'])
     }).catch(err => console.log(err))
+  }
+
+  loadData(): Observable<any> {
+
+    const collectionInstance = collection(this.fireStore, 'posts')
+
+    return  collectionData(collectionInstance, {idField: 'id'})
   }
 }
