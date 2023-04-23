@@ -31,9 +31,7 @@ export class PostsService {
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
         postData.postImgPath = downloadURL;
-        console.log(postData);
         
         if(formStatus == "Edit"){
 

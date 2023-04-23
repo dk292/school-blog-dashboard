@@ -48,6 +48,9 @@ export class NewPostComponent implements OnInit {
 
           this.imgSrc = this.post.postImgPath
           this.formStatus = "Edit"
+          this.postForm.get('title').valueChanges.subscribe((value: string) => {
+            this.postForm.get('permalink').setValue(value.replace(/\s/g, '-'));
+          })
         })
         
       })
@@ -67,6 +70,7 @@ export class NewPostComponent implements OnInit {
       content: ['', Validators.required]
     })
 
+    
   }
 
   
@@ -116,7 +120,6 @@ export class NewPostComponent implements OnInit {
       status: 'new',
       createdAt: new Date()
     }
-    console.log(postData);
     this.postService.uploadFile(this.selectedImg, "folder_img", postData, this.formStatus, this.docId)
     this.postForm.reset()
     this.imgSrc = './assets/PlaceHolder.png'
