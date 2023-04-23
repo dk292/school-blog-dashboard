@@ -29,51 +29,51 @@ export class NewPostComponent implements OnInit {
 
       this.route.queryParams.subscribe(val => {
         this.docId = val['id']
-        this.postService.loadOneData(val['id']).subscribe(post => {
-          this.post = post
+
+        if(this.docId){
+
+          this.postService.loadOneData(val['id']).subscribe(post => {
+            this.post = post
+            this.postForm = this.fb.group({
+              title: [this.post.title, [
+                Validators.required,
+                Validators.minLength(10)
+              ]],
+              permalink: [this.post.permalink, Validators.required],
+              excerpt: [this.post.excerpt, [
+                Validators.required,
+                Validators.minLength(50)
+              ]],
+              category: [`${this.post.category.categoryId}-${this.post.category.category}`, Validators.required],
+              postImg: ['', Validators.required],
+              content: [this.post.content, Validators.required]
+            })
+  
+            this.imgSrc = this.post.postImgPath
+            this.formStatus = "Edit"
+            this.postForm.get('title').valueChanges.subscribe((value: string) => {
+              this.postForm.get('permalink').setValue(value.replace(/\s/g, '-'));
+            })
+          })
+
+        } else {
           this.postForm = this.fb.group({
-            title: [this.post.title, [
+            title: ['', [
               Validators.required,
               Validators.minLength(10)
             ]],
-            permalink: [this.post.permalink, Validators.required],
-            excerpt: [this.post.excerpt, [
+            permalink: ['', Validators.required],
+            excerpt: ['', [
               Validators.required,
               Validators.minLength(50)
             ]],
-            category: [`${this.post.category.categoryId}-${this.post.category.category}`, Validators.required],
+            category: ['', Validators.required],
             postImg: ['', Validators.required],
-            content: [this.post.content, Validators.required]
+            content: ['', Validators.required]
           })
-
-          this.imgSrc = this.post.postImgPath
-          this.formStatus = "Edit"
-          this.postForm.get('title').valueChanges.subscribe((value: string) => {
-            this.postForm.get('permalink').setValue(value.replace(/\s/g, '-'));
-          })
-        })
-        
+        }
       })
-
-    this.postForm = this.fb.group({
-      title: ['', [
-        Validators.required,
-        Validators.minLength(10)
-      ]],
-      permalink: ['', Validators.required],
-      excerpt: ['', [
-        Validators.required,
-        Validators.minLength(50)
-      ]],
-      category: ['', Validators.required],
-      postImg: ['', Validators.required],
-      content: ['', Validators.required]
-    })
-
-    
   }
-
-  
 
   ngOnInit(): void {
       this.categoryService.loadData().subscribe(val => {
