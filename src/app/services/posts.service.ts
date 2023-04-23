@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, docData, updateDoc } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { Router } from '@angular/router';
@@ -10,7 +10,13 @@ import { Observable } from 'rxjs';
 })
 export class PostsService {
 
-  constructor(private storage: Storage, private fireStore: Firestore, private toastr: ToastrService,private router: Router) { }
+  constructor(
+    private storage: Storage, 
+    private fireStore: Firestore, 
+    private toastr: ToastrService,
+    private router: Router,
+    private zone: NgZone
+    ) { }
 
   uploadFile(file: any, filePath: string, postData: any, formStatus: string, id: any){
     if (!file) return
@@ -68,7 +74,7 @@ export class PostsService {
 
     updateDoc(docInstance, editData).then(() => {
       this.toastr.success("Data Updated Successfully...!")
-      this.router.navigate(['/posts'])
+      this.zone.run(() => this.router.navigate(['/posts']))
     }).catch(err => console.log(err))
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -36,7 +36,7 @@ export class NewPostComponent implements OnInit {
               Validators.required,
               Validators.minLength(10)
             ]],
-            permalink: [this.post.permalink, Validators.required],
+            permalink: [this.post.permalink, Validators.required,],
             excerpt: [this.post.excerpt, [
               Validators.required,
               Validators.minLength(50)
@@ -57,7 +57,7 @@ export class NewPostComponent implements OnInit {
         Validators.required,
         Validators.minLength(10)
       ]],
-      permalink: ['' , Validators.required],
+      permalink: ['', Validators.required],
       excerpt: ['', [
         Validators.required,
         Validators.minLength(50)

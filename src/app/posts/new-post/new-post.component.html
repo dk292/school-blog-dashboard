@@ -34,7 +34,7 @@
                         <!-- Permalink Field -->
                         <div class="form-group">
                             <label>Permalink</label>
-                            <input type="text" class="form-control" [(ngModel)]="permalink" name="permalink"formControlName="permalink">
+                            <input type="text" class="form-control"  name="permalink"formControlName="permalink">
                             <!-- Permalink Validation -->
                             <div *ngIf="fc.permalink.errors?.['required']">
                                 <div class="alert alert-danger" *ngIf='fc.permalink.touched && fc.permalink.invalid'>Permalink is required</div>
