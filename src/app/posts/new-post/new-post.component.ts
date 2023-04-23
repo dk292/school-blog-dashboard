@@ -18,7 +18,7 @@ export class NewPostComponent implements OnInit {
   categories?: Array<any>
   post?: any
   postForm: any
-
+  docId?: any 
   formStatus: string = "Add New"
 
   constructor( 
@@ -28,6 +28,7 @@ export class NewPostComponent implements OnInit {
     private route: ActivatedRoute){
 
       this.route.queryParams.subscribe(val => {
+        this.docId = val['id']
         this.postService.loadOneData(val['id']).subscribe(post => {
           this.post = post
           this.postForm = this.fb.group({
@@ -115,7 +116,7 @@ export class NewPostComponent implements OnInit {
       createdAt: new Date()
     }
     console.log(postData);
-    this.postService.uploadFile(this.selectedImg, "folder_img", postData)
+    this.postService.uploadFile(this.selectedImg, "folder_img", postData, this.formStatus, this.docId)
     this.postForm.reset()
     this.imgSrc = './assets/PlaceHolder.png'
   }

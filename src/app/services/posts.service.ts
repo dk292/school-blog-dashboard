@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, docData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, docData, updateDoc } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ export class PostsService {
 
   constructor(private storage: Storage, private fireStore: Firestore, private toastr: ToastrService,private router: Router) { }
 
-  uploadFile(file: any, filePath: string, postData: any){
+  uploadFile(file: any, filePath: string, postData: any, formStatus: string, id: any){
     if (!file) return
 
     const storageRef = ref(this.storage, `${filePath}/${file.name}`)
@@ -20,7 +20,7 @@ export class PostsService {
     uploadTask.on('state_changed',
     (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      this.toastr.info("Data Upload is " + progress + "% done")
+      this.toastr.info("Data Upload is " + Math.floor(progress) + "% done")
     },
     (err) => console.log(err),
     () => {
@@ -29,7 +29,16 @@ export class PostsService {
         postData.postImgPath = downloadURL;
         console.log(postData);
         
-        this.saveData(postData)
+        if(formStatus == "Edit"){
+
+          this.updateData(id, postData)
+
+        } else {
+
+          this.saveData(postData)
+
+        }
+
       })
     })
   }
@@ -52,5 +61,14 @@ export class PostsService {
   loadOneData(id: any){
     const docInstance = doc(this.fireStore, "posts", id)
     return docData(docInstance)
+  }
+
+  updateData(id: string, editData: any){
+    const docInstance = doc(this.fireStore, 'posts', id)
+
+    updateDoc(docInstance, editData).then(() => {
+      this.toastr.success("Data Updated Successfully...!")
+      this.router.navigate(['/posts'])
+    }).catch(err => console.log(err))
   }
 }
