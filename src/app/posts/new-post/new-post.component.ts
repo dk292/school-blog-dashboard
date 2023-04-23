@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -15,10 +16,40 @@ export class NewPostComponent implements OnInit {
   imgSrc: any = './assets/PlaceHolder.png'
   selectedImg?: any
   categories?: Array<any>
-
+  post?: any
   postForm: any
 
-  constructor(private categoryService: CategoriesService, private fb: FormBuilder, private postService: PostsService){
+  formStatus: string = "Add New"
+
+  constructor( 
+    private categoryService: CategoriesService, 
+    private fb: FormBuilder, 
+    private postService: PostsService, 
+    private route: ActivatedRoute){
+
+      this.route.queryParams.subscribe(val => {
+        this.postService.loadOneData(val['id']).subscribe(post => {
+          this.post = post
+          this.postForm = this.fb.group({
+            title: [this.post.title, [
+              Validators.required,
+              Validators.minLength(10)
+            ]],
+            permalink: [this.post.permalink, Validators.required],
+            excerpt: [this.post.excerpt, [
+              Validators.required,
+              Validators.minLength(50)
+            ]],
+            category: [`${this.post.category.categoryId}-${this.post.category.category}`, Validators.required],
+            postImg: ['', Validators.required],
+            content: [this.post.content, Validators.required]
+          })
+
+          this.imgSrc = this.post.postImgPath
+          this.formStatus = "Edit"
+        })
+        
+      })
 
     this.postForm = this.fb.group({
       title: ['', [

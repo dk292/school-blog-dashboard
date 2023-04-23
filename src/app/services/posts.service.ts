@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, docData } from '@angular/fire/firestore';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -47,5 +47,10 @@ export class PostsService {
     const collectionInstance = collection(this.fireStore, 'posts')
 
     return  collectionData(collectionInstance, {idField: 'id'})
+  }
+
+  loadOneData(id: any){
+    const docInstance = doc(this.fireStore, "posts", id)
+    return docData(docInstance)
   }
 }

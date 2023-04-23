@@ -13,7 +13,6 @@ export class AllPostComponent implements OnInit{
 
   ngOnInit(): void {
       this.postService.loadData().subscribe(val => {
-        console.log(val);
         
         this.postData = val
       })
