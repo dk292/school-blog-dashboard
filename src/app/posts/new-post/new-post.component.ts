@@ -36,7 +36,7 @@ export class NewPostComponent implements OnInit {
               Validators.required,
               Validators.minLength(10)
             ]],
-            permalink: [this.post.permalink, Validators.required,],
+            permalink: [this.post.permalink, Validators.required],
             excerpt: [this.post.excerpt, [
               Validators.required,
               Validators.minLength(50)
@@ -69,21 +69,22 @@ export class NewPostComponent implements OnInit {
 
   }
 
+  
+
   ngOnInit(): void {
       this.categoryService.loadData().subscribe(val => {
         this.categories = val
       })
 
+      this.postForm.get('title').valueChanges.subscribe((value: string) => {
+        this.postForm.get('permalink').setValue(value.replace(/\s/g, '-'));
+      })
   }
 
   get fc() {
     return this.postForm.controls
   }
 
-  onTitleChange($evt: any){    
-    const title = $evt.target.value;
-    this.permalink = title.replace(/\s/g, '-');
-  }
 
   showPreview($evt: any){
     const reader = new FileReader();

@@ -53,7 +53,7 @@ export class PostsService {
     const collectionInstance = collection(this.fireStore, 'posts')
     addDoc(collectionInstance, postData).then(()=> {
       this.toastr.success("Data Inserted Successfully...!")
-      this.router.navigate(['/posts'])
+      this.zone.run(() => this.router.navigate(['/posts']))
     }).catch(err => console.log(err))
   }
 
