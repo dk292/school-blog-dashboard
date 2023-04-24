@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, docData, updateDoc } from '@angular/fire/firestore';
-import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import { Firestore, collection, addDoc, collectionData, doc, docData, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Storage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -74,5 +74,20 @@ export class PostsService {
       this.toastr.success("Data Updated Successfully...!")
       this.zone.run(() => this.router.navigate(['/posts']))
     }).catch(err => console.log(err))
+  }
+
+  deleteImage(postImgPath: any, id: any){
+    const storageRef = ref(this.storage, postImgPath)
+    deleteObject(storageRef).then(() => {
+      this.deleteData(id);
+    })
+  }
+
+  deleteData(id: any){
+    const docInstance = doc(this.fireStore, 'posts', id)
+
+    deleteDoc(docInstance)
+    .then(() => this.toastr.warning("Data Deleted...!"))
+    .catch((err) => console.log(err))
   }
 }
