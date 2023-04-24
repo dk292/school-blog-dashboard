@@ -43,8 +43,8 @@
                                     <button class="btn btn-sm btn-warning" routerLink="/posts/new" [queryParams]="{id: data.id}">Edit</button>
                                     <button class="btn btn-sm btn-danger ml-2" (click)="onDelete(data.postImgPath, data.id)">Delete</button>
 
-                                    <button *ngIf="!data.isFeatured" class="btn btn-sm btn-success ml-2" routerLink="/posts/new" [queryParams]="{id: data.id}">Mark Featured</button>
-                                    <button *ngIf="data.isFeatured" class="btn btn-sm btn-info ml-2" (click)="onDelete(data.postImgPath, data.id)">Remove Featured</button>
+                                    <button *ngIf="!data.isFeatured" class="btn btn-sm btn-success ml-2" (click)="onFeatured(data.id, true)">Mark Featured</button>
+                                    <button *ngIf="data.isFeatured" class="btn btn-sm btn-info ml-2" (click)="onFeatured(data.id, false)">Remove Featured</button>
                                 </td>
                             </tr>
                         </tbody>

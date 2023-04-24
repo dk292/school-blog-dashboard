@@ -90,4 +90,13 @@ export class PostsService {
     .then(() => this.toastr.warning("Data Deleted...!"))
     .catch((err) => console.log(err))
   }
+
+  
+  markFeatured(id: any, featuredData: any){
+    const docInstance = doc(this.fireStore, 'posts', id)
+
+    updateDoc(docInstance, featuredData).then(() => {
+      this.toastr.info("Featured Status Updated Successfully...!")
+    }).catch(err => console.log(err))
+  }
 }
