@@ -3,7 +3,7 @@ import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPass
 import { Form } from '../models/form';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,8 @@ export class AuthService implements OnDestroy {
   private auth$: Auth = inject(Auth)
   authStateSubscription!: Subscription;
   authState$ = authState(this.auth$)
+
+  loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor( 
     private toastr: ToastrService,
@@ -45,6 +47,7 @@ export class AuthService implements OnDestroy {
       .then(() => {
         this.toastr.success("Login successfully..!")
         this.loadUser()
+        this.loggedIn.next(true)
         this.router.navigateByUrl('/', {replaceUrl: true})
       })
       .catch(() => {
@@ -56,7 +59,16 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    return signOut(this.auth$)
+    return signOut(this.auth$).then(() => {
+      this.toastr.success("User Logged Out Successfully...!")
+      localStorage.removeItem("user")
+      this.loggedIn.next(false)
+      this.router.navigateByUrl('/login', {replaceUrl: true})
+    })
+  }
+
+  isLoggedIn(){
+    return this.loggedIn.asObservable()
   }
 
   ngOnDestroy(): void {

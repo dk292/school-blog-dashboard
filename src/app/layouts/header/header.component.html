@@ -2,8 +2,8 @@
     <div class="container justify-content-center"> 
         <a href="#" class="site-logo">School Blog</a>
     </div>
-    <div class="container justify-content-center"> 
+    <div *ngIf="isloggedIn$ | async" class="container justify-content-center"> 
         <a href="#" class="mr-3"> {{ userEmail }} </a>
-        <button class="btn btn-sm btn-info bg-secondary-theme text-theme-primary ">Logout</button>
+        <button class="btn btn-sm btn-info bg-secondary-theme text-theme-primary " (click)="logout()">Logout</button>
     </div>
 </header>
