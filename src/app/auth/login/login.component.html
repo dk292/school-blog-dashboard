@@ -9,7 +9,7 @@
                         <p>Please login to your admin account to post a new blog post</p>
                     </div>
 
-                    <form #loginForm = ngForm >
+                    <form #loginForm = ngForm (ngSubmit)="login(loginForm.value)">
                         <div class="form-group">
                             <input 
                             type="email" 
@@ -40,7 +40,8 @@
                             >
                             <div class="alert alert-danger" *ngIf="Password.touched && Password.invalid">Password Cannot be Empty</div>
                         </div>
-                        <button class="btn btn-info btn-block btn-theme" [disabled]="loginForm.invalid">Login</button>
+                        <button type="submit" class="btn btn-info btn-md btn-theme" [disabled]="loginForm.invalid">Login</button>
+                        <button type="button" class="btn btn-info btn-md btn-theme"  (click)="register(loginForm.value)">Register</button>
                     </form>
                 </div>
             </div>
