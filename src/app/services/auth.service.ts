@@ -13,6 +13,8 @@ export class AuthService implements OnDestroy {
   authStateSubscription!: Subscription;
   authState$ = authState(this.auth$)
 
+  isloggedInGurd: boolean = false
+
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor( 
@@ -47,6 +49,7 @@ export class AuthService implements OnDestroy {
       .then(() => {
         this.toastr.success("Login successfully..!")
         this.loadUser()
+        this.isloggedInGurd = true
         this.loggedIn.next(true)
         this.router.navigateByUrl('/', {replaceUrl: true})
       })
@@ -63,6 +66,7 @@ export class AuthService implements OnDestroy {
       this.toastr.success("User Logged Out Successfully...!")
       localStorage.removeItem("user")
       this.loggedIn.next(false)
+      this.isloggedInGurd = false
       this.router.navigateByUrl('/login', {replaceUrl: true})
     })
   }
