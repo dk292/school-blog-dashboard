@@ -29,28 +29,7 @@ export class AuthService implements OnDestroy {
   constructor( 
     private toastr: ToastrService,
     private router: Router
-    ) { 
-      this._storage$.next(localStorage)
-      window.addEventListener('storage', event => {
-        if(event.storageArea == localStorage){
-          this._storage$.next(localStorage)
-        }
-      })
-    }
-  
-    getItem(key: string): any {
-      return localStorage.getItem(key);
-    }
-  
-    setItem(key: string, value: any): void {
-      localStorage.setItem(key, value);
-      this._storage$.next(localStorage);
-    }
-  
-    removeItem(key: string): void {
-      localStorage.removeItem(key);
-      this._storage$.next(localStorage);
-    }
+    ) { }
 
   async register({ email, password}: Form){
   
@@ -76,7 +55,9 @@ export class AuthService implements OnDestroy {
 
   loadUser(){
     this.authStateSubscription =  this.authState$.subscribe(user => {
-      this.setItem('storage', user?.email)
+      if(user?.email){
+        localStorage.setItem('storage', user?.email)
+      }
     })    
   }
 
@@ -107,7 +88,7 @@ export class AuthService implements OnDestroy {
       this.toastr.success("User Logged Out Successfully...!")
       this.loggedIn.next(false)
       this.isloggedInGurd = false
-      this.removeItem('storage')
+      localStorage.removeItem('storage')
       this.router.navigateByUrl('/login', {replaceUrl: true})
     })
   }

@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Form } from 'src/app/models/form';
 import { AuthService } from 'src/app/services/auth.service';
 
-import {Observable} from 'rxjs'
+import {BehaviorSubject} from 'rxjs'
 
 @Component({
   selector: 'app-login',
@@ -26,12 +26,12 @@ export class LoginComponent {
 
   async register(value: Form) {
     const user = await this.authService.register(value)
-    this.authService.userEmail = this.authService.getItem('storage')
+    this.authService.userEmail = localStorage.getItem('storage') as unknown as BehaviorSubject<string>
   }
 
   async login(value: Form){
     const user = await this.authService.login(value)
-    this.authService.userEmail = this.authService.getItem('storage')
+    this.authService.userEmail = localStorage.getItem('storage') as unknown as BehaviorSubject<string>
   }
   
 }
