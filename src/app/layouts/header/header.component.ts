@@ -9,24 +9,26 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  userEmail!: string
   isloggedIn$!: Observable<boolean>
-
+  email!: string
   constructor(
     private authService: AuthService
-  ){}
+  ){
+    
+  }
+
 
   ngOnInit(): void {
-    // console.log(JSON.parse(localStorage.getItem("user")))
-    const user = localStorage.getItem("user");
-    if(user){
-      this.userEmail = JSON.parse(user).email
-    }
 
+    this.authService.userEmail.asObservable().subscribe(val => {
+      this.email = val
+    })
     this.isloggedIn$ = this.authService.isLoggedIn();
   }
 
+
   logout(){
     this.authService.logout()
+    location.reload()
   }
 }

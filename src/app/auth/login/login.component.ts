@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Form } from 'src/app/models/form';
 import { AuthService } from 'src/app/services/auth.service';
 
+import {Observable} from 'rxjs'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,6 +30,7 @@ export class LoginComponent {
 
   async login(value: Form){
     const user = await this.authService.login(value)
+    this.authService.userEmail = this.authService.getItem('storage')
   }
   
 }
