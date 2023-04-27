@@ -26,6 +26,7 @@ export class LoginComponent {
 
   async register(value: Form) {
     const user = await this.authService.register(value)
+    this.authService.userEmail = this.authService.getItem('storage')
   }
 
   async login(value: Form){

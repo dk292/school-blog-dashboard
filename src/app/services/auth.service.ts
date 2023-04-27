@@ -60,6 +60,7 @@ export class AuthService implements OnDestroy {
       {
         this.userEmail.next(ref.user.email)
         this.router.navigateByUrl('/', {replaceUrl: true})
+        this.loadUser()
         this.isloggedInGurd = true
         this.loggedIn.next(true)
         this.toastr.success("You register successfully")
@@ -78,9 +79,6 @@ export class AuthService implements OnDestroy {
       this.setItem('storage', user?.email)
     })    
   }
-
- 
-
 
   async login({email, password}: Form){
 
