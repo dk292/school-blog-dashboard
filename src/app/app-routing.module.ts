@@ -8,6 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 import { redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
 import { AuthGuard } from './services/auth.guard';
+import { SubscribersComponent } from './subscribers/subscribers.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
 const redirectLoggedInToHome = () => redirectLoggedInTo([''])
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard]},
   {path: 'posts', component: AllPostComponent, canActivate: [AuthGuard]},
   {path: 'posts/new', component: NewPostComponent, canActivate: [AuthGuard]},
+  {path: 'subscribers', component: SubscribersComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

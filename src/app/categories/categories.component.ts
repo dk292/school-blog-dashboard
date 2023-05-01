@@ -35,28 +35,6 @@ export class CategoriesComponent implements OnInit {
       formData.reset()
       this.formStatus = 'Add'
     }
-
-
-
-    // const collectionInstance = collection(this.fireStore, 'categories')
-    // addDoc(collectionInstance, categoryData).then((ref) => {
-    //   console.log("First Data added successfully")
-      
-    //   const subCollection = collection(this.fireStore, `categories/${ref.id}/subcategories`)
-
-    //   addDoc(subCollection, subCategoryData).then(subRef=>{
-    //     console.log("Sub Data added successfully")
-
-    //     const subSecondCollection = collection(this.fireStore, `categories/${ref.id}/subcategories/${subRef.id}/third collection`)
-
-    //     addDoc(subSecondCollection, secondSubCategoryData).then(tRef => {
-    //       console.log("Third Data added successfully");
-    //     }).catch(err => console.log(err))
-
-    //   }).catch(err => console.log(err))
-
-    // }).catch(err => console.log(err))
-    
   }
 
   onEdit(category: any, id: string)

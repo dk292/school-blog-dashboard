@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllPostComponent } from './posts/all-post/all-post.component';
 import { NewPostComponent } from './posts/new-post/new-post.component';
 import { LoginComponent } from './auth/login/login.component';
+import { SubscribersComponent } from './subscribers/subscribers.component';
 
 
 
@@ -34,7 +35,8 @@ import { LoginComponent } from './auth/login/login.component';
     CategoriesComponent,
     AllPostComponent,
     NewPostComponent,
-    LoginComponent
+    LoginComponent,
+    SubscribersComponent
   ],
   imports: [
     BrowserModule,
